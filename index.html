@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RISHITA</title>
+  <title>RISHITA 🌷</title>
 
   <style>
     body {
@@ -26,10 +26,12 @@
       max-width: 400px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       animation: fadeIn 1.2s ease;
+      z-index: 2;
     }
 
     h1 {
       color: #ff5e7e;
+      margin-bottom: 10px;
     }
 
     p {
@@ -67,23 +69,38 @@
       font-size: 18px;
       animation: floatUp 6s linear infinite;
       opacity: 0.7;
+      z-index: 1;
     }
 
     @keyframes floatUp {
-      from { transform: translateY(0); opacity: 0.8; }
-      to { transform: translateY(-110vh); opacity: 0; }
+      from {
+        transform: translateY(0);
+        opacity: 0.8;
+      }
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
   </style>
 </head>
 <body>
 
-  <audio id="bgMusic" loop>
-    <source src="chaudhary.mp3" type="audio/mpeg">
+  <!-- 🎵 Background Music (GitHub Pages Safe) -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="./chaudhary.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
   </audio>
 
   <div class="card">
@@ -102,25 +119,37 @@
 
     <div id="surprise" class="hidden">
       Even on quiet days…  
-      you’re still someone’s favorite thought ✨
+      you’re still someone’s favorite thought ❤️
     </div>
   </div>
 
   <script>
-    function showMessage() {
-      document.getElementById("surprise").style.display = "block";
-    }
+    // REQUIRED for mobile browsers
+    document.body.addEventListener("click", () => {
+      const music = document.getElementById("bgMusic");
+      if (music.paused) {
+        music.volume = 0.35;
+        music.play().catch(() => {});
+      }
+    }, { once: true });
 
     function startMusic() {
       const music = document.getElementById("bgMusic");
       music.volume = 0.35;
-      music.play();
+      music.currentTime = 0;
+      music.play().catch(() => {
+        alert("Tap anywhere once, then tap Play 🎵");
+      });
+    }
+
+    function showMessage() {
+      document.getElementById("surprise").style.display = "block";
     }
 
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
-      heart.innerHTML = "💖";
+      heart.innerHTML = "❤️";
       heart.style.left = Math.random() * 100 + "vw";
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 6000);
