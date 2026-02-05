@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rishita 🌷</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-      height: 100vh;
+      min-height: 100vh;
+      overflow-x: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .card {
-      background: rgba(255,255,255,0.95);
-      padding: 30px;
-      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.94);
+      padding: 28px;
+      border-radius: 20px;
       text-align: center;
       width: 90%;
-      max-width: 400px;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+      max-width: 380px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      animation: fadeIn 1.2s ease;
     }
 
     h1 {
       color: #ff5e7e;
+      margin-top: 0;
     }
 
     p {
@@ -37,8 +44,8 @@
     }
 
     button {
-      margin-top: 15px;
-      padding: 12px 26px;
+      margin-top: 12px;
+      padding: 12px 22px;
       border: none;
       border-radius: 30px;
       background: #ff5e7e;
@@ -49,15 +56,34 @@
 
     .hidden {
       display: none;
-      margin-top: 20px;
+      margin-top: 18px;
       color: #ff5e7e;
       font-weight: 600;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 18px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 0.8; }
+      to { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
 
-  <!-- 🎵 AUDIO -->
+  <!-- 🎵 Background Music -->
   <audio id="bgMusic" preload="auto" loop>
     <source src="chaudhary.mp3" type="audio/mpeg">
   </audio>
@@ -66,38 +92,45 @@
     <h1>Rishita 🌷</h1>
 
     <p>
-      This little space is just for you 🤍  
-      Take a breath… everything will be okay.
+      I know today feels a little off…  
+      so I made this tiny space just for you.
+      <br><br>
+      Take a deep breath ✨  
+      You’re safe here.
     </p>
 
-    <button id="playBtn">Play music 🎵</button>
+    <button onclick="startMusic()">Play music 🎵</button>
     <button onclick="showMessage()">Tap for a smile 💕</button>
 
     <div id="surprise" class="hidden">
-      Even on your quiet days,  
-      you’re deeply appreciated ✨
+      Even on quiet days…  
+      you’re still someone’s favorite thought 🤍
     </div>
   </div>
 
   <script>
-    const music = document.getElementById("bgMusic");
-    const playBtn = document.getElementById("playBtn");
-
-    playBtn.addEventListener("click", () => {
-      music.volume = 0.4;
-      music.play()
-        .then(() => {
-          playBtn.innerText = "Music playing 💖";
-          playBtn.disabled = true;
-        })
-        .catch(err => {
-          alert("Tap again to allow sound 🎵");
-        });
-    });
-
     function showMessage() {
       document.getElementById("surprise").style.display = "block";
     }
+
+    function startMusic() {
+      const music = document.getElementById("bgMusic");
+      music.volume = 0.4;
+      music.play().catch(() => {
+        alert("Tap once anywhere on the page, then press Play 🎵");
+      });
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 700);
   </script>
 
 </body>
