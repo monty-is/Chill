@@ -6,9 +6,7 @@
   <title>Rishita 🌷</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -22,7 +20,7 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255,255,255,0.95);
       padding: 28px;
       border-radius: 20px;
       text-align: center;
@@ -32,10 +30,7 @@
       animation: fadeIn 1.2s ease;
     }
 
-    h1 {
-      color: #ff5e7e;
-      margin-top: 0;
-    }
+    h1 { color: #ff5e7e; margin-top: 0; }
 
     p {
       color: #444;
@@ -79,15 +74,18 @@
       from { opacity: 0; transform: scale(0.9); }
       to { opacity: 1; transform: scale(1); }
     }
+
+    iframe { display: none; }
   </style>
 </head>
 <body>
 
-  <!-- 🎵 Background Music -->
-  <audio id="bgMusic" preload="auto" loop>
-  <source src="https://raw.githubusercontent.com/monty-is/Chill/main/chaudhary.mp3" type="audio/mpeg">
-</audio>
-
+  <!-- 🎵 Hidden YouTube Audio -->
+  <iframe
+    id="ytMusic"
+    src=""
+    allow="autoplay"
+  ></iframe>
 
   <div class="card">
     <h1>Rishita 🌷</h1>
@@ -100,7 +98,7 @@
       You’re safe here.
     </p>
 
-    <button onclick="startMusic()">Play music 🎵</button>
+    <button onclick="playMusic()">Play music 🎵</button>
     <button onclick="showMessage()">Tap for a smile 💕</button>
 
     <div id="surprise" class="hidden">
@@ -110,16 +108,14 @@
   </div>
 
   <script>
-    function showMessage() {
-      document.getElementById("surprise").style.display = "block";
+    function playMusic() {
+      const iframe = document.getElementById("ytMusic");
+      iframe.src =
+        "https://www.youtube.com/embed/1J-NgJc9M8A?autoplay=1&loop=1&playlist=1J-NgJc9M8A";
     }
 
-    function startMusic() {
-      const music = document.getElementById("bgMusic");
-      music.volume = 0.4;
-      music.play().catch(() => {
-        alert("Tap once anywhere on the page, then press Play 🎵");
-      });
+    function showMessage() {
+      document.getElementById("surprise").style.display = "block";
     }
 
     function createHeart() {
